@@ -1,4 +1,4 @@
-ssimport mysql.connector
+import mysql.connector
 import requests
 import time
 db = mysql.connector.connect(host="localhost",user="root",passwd="password",db="monitoring_db")
