@@ -1,0 +1,13 @@
+form
+{
+    width: 50%;
+    border: 7px solid #aaa;
+    padding: 15px;
+    margin-bottom: 50px;
+}
+body
+{
+	text-align: center;
+	display: block;
+	margin: auto;
+}

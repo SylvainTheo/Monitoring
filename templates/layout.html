@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/spectre.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/spectre-exp.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/spectre-icons.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/layout_css.css') }}">
+        <title>{% block titre %}Titre par défaut{% endblock %}</title>
+    </head>
+    <body>
+        <div id="global_buttons_div">
+            <header class="navbar bg-secondary">
+                <section class="navbar-section">
+                <a href="{{ url_for('show_websites') }}" class="btn btn-link">Accueil</a>
+                </section>
+                <section class="navbar-center">
+                <a href="{{ url_for('show_websites') }}"><img class="icon icon-menu icon-4x" src="{{ url_for('static', filename='image/monitoring-icon.png') }}"></a>
+                </section>
+                <section class="navbar-section">
+                    <a href="{{ url_for('admin') }}" class="btn btn-link">Administration</a>
+                    {% if session.user or session.get('user')[2] %}
+                        <a href="{{ url_for('admin_logout') }}" class="btn btn-link">Deconnexion</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="btn btn-link">Connexion</a>
+                    {% endif %}
+                </section>
+            </header>
+        </div>
+        <div class="mt-2 container grid-lg">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category=="success" %}
+                    <div id="toast-id" class="toast toast-success">
+                        <a onclick="document.getElementById('toast-id').className += ' d-hide';" class="btn btn-clear float-right"></a>
+                        <p>{{ category }} : {{ message }}</p>
+                    </div>
+                    {% elif category=="error" %}
+                        <div id="toast-id" class="toast toast-error">
+                        <a onclick="document.getElementById('toast-id').className += ' d-hide';" class="btn btn-clear float-right"></a>
+                        <p>{{ category }} : {{ message }}</p>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block body %}{% endblock %}
+        </div>
+    </body>
+</html>
+

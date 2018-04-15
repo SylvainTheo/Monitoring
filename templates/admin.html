@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block titre %}
+    Administration
+{% endblock %}
+
+{% block body %}
+<ul class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="{{ url_for('show_websites') }}">Accueil</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="">Administration</a>
+  </li>
+</ul>
+    <h1 class="text-bold"">Administration</h1>
+    <h4>Bienvenue sur l'administration {{ session.user.0 }} !</h4>
+
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>URL</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for website in websites %}
+        <tr class="active">
+          <td>{{ website.1 }}</td>
+          <td><a href="{{ url_for('modify_website_form', id_site= website.0) }}" class="btn btn-primary">modifier</a></td>
+          <td><a href="{{ url_for('delete_website', id_site= website.0) }}" class="btn btn-primary">Supprimer</a> </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</br>
+
+    <h1 class="text-bold">Ajouter un site</h1>
+    <form action="{{ url_for('add_website') }}" class="form-group centered" method="POST">
+        <fieldset>
+        	<label for="url">Url :</label><br/>
+            <input type="text" name="url" id="url" /><br/><br/>
+
+            <input class="btn btn-primary" type="submit" value="Valider"/>
+        </fieldset>
+    </form>
+{% endblock %}

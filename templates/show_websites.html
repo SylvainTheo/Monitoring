@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block titre %}
+    Show websites
+{% endblock %}
+
+{% block body %}
+<ul class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="">Accueil</a>
+  </li>
+</ul>
+    <h1 class="text-bold">Liste des sites</h1>
+	<table class="table table-striped table-hover">
+	  <thead>
+	    <tr>
+	      <th>URL</th>
+	      <th>Dernière requête</th>
+	      <th>Historique de requêtes</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for site in requests_sites %}
+	    <tr class="active">
+	      <td>{{ site.0 }}</td>
+	      {% if site.1 == 000 %}
+	      	<td>Problème de connexion au serveur</td>
+	      {% else %}
+	      	<td>{{ site.1 }}</td>
+	      {% endif %}
+	      <td><a href="{{ url_for('show_one_website', id_site=site[2]) }}" class="btn btn-primary" >Historique {{ site.0 }}</a></td>
+	    </tr>
+	    {% endfor %}
+	  </tbody>
+	</table>
+{% endblock %}
